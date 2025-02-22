@@ -1,0 +1,26 @@
+{
+  "name": "m101-marking-tool",
+  "version": "1.0.0",
+  "description": "",
+  "bin": {
+    "m101": "./bin/cli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node bin/cli.js",
+    "dev": "tsx src/main.ts"
+  },
+  "type": "module",
+  "author": "Markus Chiarot, App Castle GmbH",
+  "license": "WTFPL",
+  "dependencies": {
+    "commander": "^13.1.0",
+    "decompress": "^4.2.1"
+  },
+  "devDependencies": {
+    "@types/decompress": "^4.2.7",
+    "@types/node": "^22.13.2",
+    "tsx": "^4.19.3",
+    "typescript": "^5.7.3"
+  }
+}
