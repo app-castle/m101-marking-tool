@@ -1,22 +1,5 @@
-import cssValidator from "w3c-css-validator";
-
-type ValidatorMessage = {
-  type: "error" | "info" | "non-document-error";
-  message: string;
-  lastLine?: number;
-  lastColumn?: number;
-  firstLine?: number;
-  firstColumn?: number;
-  subType?: string;
-  extract?: string;
-  hiliteStart?: number;
-  hiliteLength?: number;
-};
-
-type CheckResult = {
-  status: number;
-  messages: ValidatorMessage[];
-};
+import { validateCssText } from "./css-validator.js";
+import { validateHtmlText } from "./html-validator.js";
 
 export const throttle = () => {
   const throttleDelay = 1000;
@@ -36,39 +19,18 @@ export const throttle = () => {
   return { runWithThrottle };
 };
 
-const validateHtmlText = async (text: string): Promise<CheckResult> => {
-  let result: Response | undefined;
-
-  try {
-    result = await fetch("https://html5.validator.nu/?out=json", {
-      method: "POST",
-      body: text,
-      headers: {
-        "Content-Type": "text/html; charset=UTF-8",
-      },
-    });
-  } finally {
-    return {
-      status: result?.status ?? 500,
-      messages: (await result?.json()).messages ?? [],
-    };
-  }
-};
-
 const { runWithThrottle: runCssValidateWithThrottle } = throttle();
 
 export const callCssValidator = async (text: string, filename: string) => {
-  const data = await runCssValidateWithThrottle(() =>
-    cssValidator.validateText(text, { warningLevel: 2 })
-  );
+  const data = await runCssValidateWithThrottle(() => validateCssText(text));
 
-  console.log(`(${data.valid ? "VALID" : "INVALID"}) ${filename}`);
+  console.log(`(${data.validity ? "VALID" : "INVALID"}) ${filename}`);
 
-  for (const msg of data.errors) {
+  for (const msg of data.errors ?? []) {
     console.log(`- (error:${msg.line}): ${msg.message}`);
   }
 
-  for (const msg of data.warnings) {
+  for (const msg of data.warnings ?? []) {
     console.log(`- (warning:${msg.line}): ${msg.message}`);
   }
 };
