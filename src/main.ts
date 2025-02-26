@@ -1,8 +1,8 @@
 import { Command } from "commander";
 import info from "../package.json" assert { type: "json" };
 import { stylelintCmd } from "./command/stylelint.js";
+import { unzipCmd } from "./command/unzip.js";
 import { validateCmd } from "./command/validate.js";
-import { unzipCmd } from "./command/zip.js";
 
 const cli = new Command();
 
