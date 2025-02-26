@@ -1,7 +1,8 @@
 import { Command } from "commander";
 import info from "../package.json" assert { type: "json" };
-import { css } from "./command/css.js";
-import { unzip } from "./command/zip.js";
+import { stylelintCmd } from "./command/stylelint.js";
+import { validateCmd } from "./command/validate.js";
+import { unzipCmd } from "./command/zip.js";
 
 const cli = new Command();
 
@@ -10,7 +11,8 @@ cli
   .description("Helps marking module 101 results.")
   .version(info.version, "-v");
 
-cli.addCommand(unzip);
-cli.addCommand(css);
+cli.addCommand(unzipCmd);
+cli.addCommand(stylelintCmd);
+cli.addCommand(validateCmd);
 
 cli.parse(process.argv);

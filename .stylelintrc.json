@@ -1,0 +1,45 @@
+{
+  "extends": ["stylelint-config-standard"],
+  "rules": {
+    "font-family-name-quotes": [
+      "always-where-recommended",
+      {
+        "severity": "warning"
+      }
+    ],
+    "media-feature-range-notation": [
+      "context",
+      {
+        "severity": "warning"
+      }
+    ],
+    "function-url-quotes": [
+      "always",
+      {
+        "severity": "warning"
+      }
+    ],
+    "rule-empty-line-before": [
+      "always-multi-line",
+      {
+        "except": ["first-nested"],
+        "ignore": ["after-comment"],
+        "severity": "info"
+      }
+    ],
+    "at-rule-empty-line-before": [
+      "always",
+      {
+        "except": ["blockless-after-same-name-blockless", "first-nested"],
+        "ignore": ["after-comment"],
+        "severity": "info"
+      }
+    ],
+    "no-descending-specificity": [
+      true,
+      {
+        "severity": "info"
+      }
+    ]
+  }
+}

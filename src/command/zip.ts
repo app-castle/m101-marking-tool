@@ -22,7 +22,7 @@ const zipFlat = async (
   );
 };
 
-export const unzip = new Command("unzip")
+export const unzipCmd = new Command("unzip")
   .argument("<input>")
   .argument("<output>")
   .action(async (input: string, output: string) => {
