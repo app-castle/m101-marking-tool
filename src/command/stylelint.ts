@@ -2,11 +2,12 @@ import { Command } from "commander";
 import path from "path";
 import stylelint from "stylelint";
 import config from "../../.stylelintrc.json" assert { type: "json" };
+import { parsePath } from "../utlil/file.js";
 
 type Severity = stylelint.Severity | "info";
 
 export const stylelintCmd = new Command("stylelint")
-  .argument("<input>")
+  .argument("<input>", "Path which is searched for CSS documents", parsePath)
   .action(async (input: string) => {
     const result = await stylelint.lint({
       files: path.resolve(input),

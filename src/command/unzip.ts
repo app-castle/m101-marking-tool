@@ -1,9 +1,9 @@
 import { Command } from "commander";
-import { zipFlat } from "../utlil/file.js";
+import { parsePath, zipFlat } from "../utlil/file.js";
 
 export const unzipCmd = new Command("unzip")
-  .argument("<input>")
-  .argument("<output>")
+  .argument("<input>", "Path where the zip is located", parsePath)
+  .argument("<output>", "Path where to put the unzipped files", parsePath)
   .action(async (input: string, output: string) => {
     try {
       console.log(`unzipping <${input}>...`);

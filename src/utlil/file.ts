@@ -54,3 +54,9 @@ export const zipFlat = async (
       })
   );
 };
+
+// cmd/powershell quotes paths with spaces like this: '.\this is a folder\'
+// in process.argv the argument will be: .\\this is a folder"
+// with the trailing quotation mark
+// this removes such trailing quotation marks from paths
+export const parsePath = (input: string) => input.replace(/"$/, "");

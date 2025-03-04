@@ -1,11 +1,15 @@
 import { Command } from "commander";
 import { readFile } from "fs/promises";
 import path from "path";
-import { findFilesByExt } from "../utlil/file.js";
+import { findFilesByExt, parsePath } from "../utlil/file.js";
 import { callCssValidator, callHtmlValidator } from "../utlil/validator.js";
 
 export const validateCmd = new Command("validate")
-  .argument("<input>")
+  .argument(
+    "<input>",
+    "Path which is searched for HTML and CSS documents",
+    parsePath
+  )
   .option("--css", "validate CSS documents")
   .option("--html", "validate HTML documents")
   .action(async (input: string, options) => {
