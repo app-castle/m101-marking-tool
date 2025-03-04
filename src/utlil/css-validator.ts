@@ -1,3 +1,5 @@
+import { cliExitController } from "./common.js";
+
 type CSSValidation = {
   uri: string;
   checkedby: string;
@@ -99,6 +101,7 @@ export const validateCssText = async (text: string): Promise<CSSValidation> => {
       "Content-Length": String(new TextEncoder().encode(parameters).byteLength),
     },
     body: parameters,
+    signal: cliExitController.signal,
   });
 
   return (await resp.json()).cssvalidation;

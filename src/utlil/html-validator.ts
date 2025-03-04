@@ -1,3 +1,5 @@
+import { cliExitController } from "./common.js";
+
 type ValidatorMessage = {
   type: "error" | "info" | "non-document-error";
   message: string;
@@ -26,11 +28,12 @@ export const validateHtmlText = async (text: string): Promise<CheckResult> => {
       headers: {
         "Content-Type": "text/html; charset=UTF-8",
       },
+      signal: cliExitController.signal,
     });
   } finally {
     return {
       status: result?.status ?? 500,
-      messages: (await result?.json()).messages ?? [],
+      messages: (await result?.json())?.messages ?? [],
     };
   }
 };
